@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>评论区功能实现</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="text">
+        <button @click="submit">submit</button>
+        <ul>
+            <li v-for="item,index in message" @click='deleteword(index)'>{{ item }}</li>
+        </ul>
+        <p style="color: red; font-size: 20px;" v-if="text=== '马云'">马云</p>
+        <p style="color: red; font-size: 20px;" v-else-if="text === '敏感词'">敏感词</p>
+        <p style="color: red; font-size: 20px;" v-else></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: '',
+                message: ['123']
+            },
+            methods: {
+                submit: function(){
+                    if(this.text === '敏感词'){
+                        alert('这是敏感词，不能展示')
+                    }else{
+                        this.message.push(this.text);
+                        this.text = "";
+                    }
+                },
+                add: function(){
+
+                },
+                deleteword: function(option){
+                    this.message = this.message.filter((item,index) => {
+                        if(index === option){
+                            return false;
+                        }else{
+                            return true;
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
